@@ -7,6 +7,8 @@
 
 jQuery.each_slice = function( array, num, callback ) {
   var slice;
+  // Clone the array to prevent manipulation
+  array = array.slice();
   while ( (slice = array.splice(0, num)) && slice.length > 0 ) {
     callback.apply( slice );
   }
@@ -15,7 +17,9 @@ jQuery.each_slice = function( array, num, callback ) {
 
 jQuery.fn.each_slice = function( num, callback ) {
   var slice;
-  while ( (slice = this.splice(0, num)) && slice.length > 0 ) {
+  // Clone the jQuery object to prevent manipulation
+  var self = this.slice();
+  while ( (slice = self.splice(0, num)) && slice.length > 0 ) {
     callback.apply( jQuery( slice ) );
   }
   return this;
