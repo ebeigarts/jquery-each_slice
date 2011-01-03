@@ -6,13 +6,17 @@
  */
 
 jQuery.fn.each_slice = function(num, fn) {
-    for ( var i=0,l=this.length,count=0,slice=[]; i<=l; i++ ) {
+    var count=0,slice=[];
+    for ( var i=0,l=this.length; i<l; i++ ) {
         if ( count >= num ) {
             fn.apply( jQuery( slice ) );
-            count=0, slice=[];
+            count=0; slice=[];
         }
         slice.push( this[i] );
         count++;
+    }
+    if ( count > 0 ) {
+      fn.apply( jQuery( slice ) );
     }
     return this;
 };
