@@ -5,18 +5,18 @@
  * Version 1.0
  */
 
-jQuery.fn.each_slice = function(num, fn) {
-    var count=0,slice=[];
-    for ( var i=0,l=this.length; i<l; i++ ) {
-        if ( count >= num ) {
-            fn.apply( jQuery( slice ) );
-            count=0; slice=[];
-        }
-        slice.push( this[i] );
-        count++;
-    }
-    if ( count > 0 ) {
-      fn.apply( jQuery( slice ) );
-    }
-    return this;
+jQuery.each_slice = function( array, num, callback ) {
+  var slice;
+  while ( (slice = array.splice(0, num)) && slice.length > 0 ) {
+    callback.apply( slice );
+  }
+  return array;
+};
+
+jQuery.fn.each_slice = function( num, callback ) {
+  var slice;
+  while ( (slice = this.splice(0, num)) && slice.length > 0 ) {
+    callback.apply( jQuery( slice ) );
+  }
+  return this;
 };
